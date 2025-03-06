@@ -11,7 +11,7 @@ import static picocli.CommandLine.*;
 
 @Command(name = "FdpTools",
         description = "FdpTools",
-        subcommands = {SaveCommand.class, ValidateCommand.class, SearchCommand.class, CommandLine.HelpCommand.class}
+        subcommands = {SaveCommand.class, ValidateCommand.class, SearchCommand.class, PrintCommand.class, CommandLine.HelpCommand.class}
 )
 public class FdpTools {
 
@@ -30,7 +30,8 @@ public class FdpTools {
         HEALTH_RI("https://www.itb.ec.europa.eu/shacl/healthri/api/validateMultiple", "v1.0.0"),
         DCAT_AP2("https://www.itb.ec.europa.eu/shacl/dcat-ap/api/validateMultiple", "v2.0"),
         DCAT_AP3_BASE("https://www.itb.ec.europa.eu/shacl/dcat-ap/api/validateMultiple", "v3.0Base0"),
-        DCAT_AP3_FULL("https://www.itb.ec.europa.eu/shacl/dcat-ap/api/validateMultiple", "v3.Full");
+        DCAT_AP3_FULL("https://www.itb.ec.europa.eu/shacl/dcat-ap/api/validateMultiple", "v3.Full"),
+        HEALTH_DCAT("https://health-data-itb-rdf-validator.acceptance.data.health.europa.eu/shacl/ehds/api/validateMultiple", "healthdcatap");
 
         public final String url;
         public final String profile;
@@ -71,6 +72,18 @@ class SaveCommand implements Runnable {
     @Override
     public void run() {
         FdpSaveToDiskApp.run(parent.group.uri(), folder);
+    }
+}
+
+@Command(name = "print", description = "Print the content of the FDP to screen")
+class PrintCommand implements Runnable {
+
+    @ParentCommand
+    FdpTools parent;
+
+    @Override
+    public void run() {
+        FdpPrintApp.run(parent.group.uri());
     }
 }
 

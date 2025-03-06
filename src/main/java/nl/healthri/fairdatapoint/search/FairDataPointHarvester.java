@@ -54,6 +54,9 @@ public class FairDataPointHarvester implements AutoCloseable {
                     .uri(URI.create(url)).build();
 
             HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            if (response.statusCode() / 100 != 2) {
+                throw new IOException("Could not fetch data: response code: " + response.statusCode());
+            }
 
             InputStream inputStream = response.body();
             var result = Rio.parse(inputStream, "", RDFFormat.TURTLE);
