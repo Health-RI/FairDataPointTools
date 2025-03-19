@@ -27,12 +27,15 @@ public class FdpTools {
     }
 
     enum Profile {
+        /**
+         * List of known validation profiles for the shacl-validationw webservice.
+         */
         HEALTH_RI("https://www.itb.ec.europa.eu/shacl/healthri/api/validateMultiple", "v1.0.0"),
+        HEALTH_RI_V2("https://www.itb.ec.europa.eu/shacl/healthri/api/validateMultiple", "v2.0.0"),
         DCAT_AP2("https://www.itb.ec.europa.eu/shacl/dcat-ap/api/validateMultiple", "v2.0"),
         DCAT_AP3_BASE("https://www.itb.ec.europa.eu/shacl/dcat-ap/api/validateMultiple", "v3.0Base0"),
         DCAT_AP3_FULL("https://www.itb.ec.europa.eu/shacl/dcat-ap/api/validateMultiple", "v3.Full"),
         HEALTH_DCAT("https://health-data-itb-rdf-validator.acceptance.data.health.europa.eu/shacl/ehds/api/validateMultiple", "healthdcatap");
-
         public final String url;
         public final String profile;
 

@@ -51,7 +51,7 @@ public class FairDataPointHarvester implements AutoCloseable {
     private Optional<Model> fetchModel(String url) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url)).build();
+                    .uri(URI.create(url)).header("accept", "*/*").build();
 
             HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
             if (response.statusCode() / 100 != 2) {
