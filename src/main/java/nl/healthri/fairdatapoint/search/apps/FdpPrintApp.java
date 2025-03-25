@@ -27,7 +27,9 @@ public class FdpPrintApp {
 
         @Override
         public void store(FdpRecord rec) {
-            System.out.println("*** url: " + rec.url + " : " + rec.types());
+            int level = rec.url.level();
+            String url = rec.url.url();
+            System.out.println("\t".repeat(level) + url + " : " + rec.types() + " : " + rec.title());
         }
 
         @Override
@@ -36,7 +38,7 @@ public class FdpPrintApp {
         }
 
         @Override
-        public void close() throws Exception {
+        public void close() {
         }
     }
 }

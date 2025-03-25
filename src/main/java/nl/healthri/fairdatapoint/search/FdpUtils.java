@@ -51,9 +51,9 @@ public final class FdpUtils {
     }
 
     public final static class Mapper implements Function<Model, FdpRecord> {
-        final private String url;
+        final private FairDataPointHarvester.UrlAndLevel url;
 
-        public Mapper(String url) {
+        public Mapper(FairDataPointHarvester.UrlAndLevel url) {
             this.url = url;
         }
 

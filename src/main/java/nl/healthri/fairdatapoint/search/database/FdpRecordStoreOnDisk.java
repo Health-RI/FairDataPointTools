@@ -42,7 +42,7 @@ public class FdpRecordStoreOnDisk implements FdpRecordStore {
     @Override
     public void store(FdpRecord rec) {
         try {
-            Path p = getFolderFromUrl(rec.url);
+            Path p = getFolderFromUrl(rec.url.url());
             if (!Files.exists(p)) {
                 Files.createDirectories(p.getParent());
             }

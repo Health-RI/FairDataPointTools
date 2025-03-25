@@ -58,7 +58,7 @@ public class FdpRecordGraphEmbeddingSearch extends FdpRecordStoreBatches impleme
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         ee.close();
     }
 
@@ -68,7 +68,7 @@ public class FdpRecordGraphEmbeddingSearch extends FdpRecordStoreBatches impleme
 
         public RecordData(FdpRecord r) {
             texts = FdpUtils.extractDescriptions(r);
-            url = r.url;
+            url = r.url.url();
         }
 
         public Stream<String> textStream() {

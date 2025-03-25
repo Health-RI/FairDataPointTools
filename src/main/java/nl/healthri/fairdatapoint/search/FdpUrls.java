@@ -3,6 +3,7 @@ package nl.healthri.fairdatapoint.search;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@SuppressWarnings("unused")
 public enum FdpUrls {
 
     /**
@@ -15,8 +16,8 @@ public enum FdpUrls {
     LOVD_FDP("https://fdp.lovd.nl"),
     ORPHANET_FDP("http://fairdatapointorphanet.info/"),
     EU_FDP("https://fair.healthinformationportal.eu/"),
-    MOLGENIS("https://demo-rd3.molgenis.net/catalogue/api/rdf");
-
+    MOLGENIS("https://demo-rd3.molgenis.net/catalogue/api/rdf"),
+    LUMC("https://fdp.lumc.nl");
     public final URI uri;
 
     FdpUrls(String url) {

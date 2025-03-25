@@ -119,7 +119,7 @@ public class FdpRecordValidate extends FdpRecordStoreBatches {
         public Set<String> errors = new HashSet<>();
 
         public ReportSummary(FdpRecord rec, Model model) {
-            url = rec.url;
+            url = rec.url.url();
             ValueFactory valueFactory = SimpleValueFactory.getInstance();
             Literal trueLiteral = valueFactory.createLiteral("true", XSD.BOOLEAN);
             valid = model.contains(null, SHACL.CONFORMS, trueLiteral);

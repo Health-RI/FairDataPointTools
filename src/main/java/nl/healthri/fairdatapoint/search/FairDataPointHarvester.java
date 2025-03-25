@@ -16,9 +16,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Optional;
-import java.util.Queue;
 
 public class FairDataPointHarvester implements AutoCloseable {
 
@@ -31,15 +31,15 @@ public class FairDataPointHarvester implements AutoCloseable {
 
     public void harvest(URI fdp, FdpRecordStore db) {
         LOGGER.trace("harvesting fdp: {} ", fdp);
-        Queue<String> urls = new LinkedList<>();
-        urls.add(fdp.toString());
+        Deque<UrlAndLevel> urls = new LinkedList<>();
+        urls.add(new UrlAndLevel(fdp.toString(), 0));
 
         do {
-            final String url = urls.remove();
+            final UrlAndLevel url = urls.pop();
             final FdpUtils.Mapper convertModelToRecord = new FdpUtils.Mapper(url);
 
-            fetchModel(url).map(convertModelToRecord).ifPresent(fdpRecord -> {
-                urls.addAll(fdpRecord.children());
+            fetchModel(url.url()).map(convertModelToRecord).ifPresent(fdpRecord -> {
+                fdpRecord.children().forEach(urls::push);
                 db.store(fdpRecord);
             });
 
@@ -50,8 +50,11 @@ public class FairDataPointHarvester implements AutoCloseable {
 
     private Optional<Model> fetchModel(String url) {
         try {
+            URI u = URI.create(url);
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url)).header("accept", "*/*").build();
+                    .uri(u)
+                    .header("accept", "application/x-turtle")
+                    .build();
 
             HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
             if (response.statusCode() / 100 != 2) {
@@ -78,5 +81,8 @@ public class FairDataPointHarvester implements AutoCloseable {
         if (client != null) {
             client.close();
         }
+    }
+
+    public record UrlAndLevel(String url, Integer level) {
     }
 }
