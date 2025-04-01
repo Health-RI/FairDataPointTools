@@ -53,7 +53,8 @@ public class FairDataPointHarvester implements AutoCloseable {
             URI u = URI.create(url);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(u)
-                    .header("accept", "application/x-turtle")
+                    .header("accept", "*/*")
+                    .header("accept", "application/turtle")
                     .build();
 
             HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
@@ -67,7 +68,7 @@ public class FairDataPointHarvester implements AutoCloseable {
             return Optional.of(result);
 
         } catch (IOException ioe) {
-            LOGGER.error("Could not fetch {} ", url);
+            LOGGER.error("Could not fetch {} : {}", url, ioe.getMessage());
         } catch (RDFParseException rpe) {
             LOGGER.error("Model fetched from: {} is not a valid rdf document", url);
         } catch (InterruptedException e) {

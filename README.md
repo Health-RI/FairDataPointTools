@@ -21,12 +21,21 @@ help show info on the parameters.
 
 ```
 
+display structure
+
+```
+-u<URL to FDP>
+
+instead -u you can use --fdp and select form hardcoded list of known FDP servers. 
+
+```
+
 saving fdp to disk:
 
 ```
 -u=<URL to FDP> save -f=<folder>
 
-instead -u you can use --fdp and select form harcoded list of FDP server. 
+instead -u you can use --fdp and select form hardcoded list of known FDP servers. 
 ```
 
 validating fdp to profile:
@@ -40,6 +49,7 @@ DCAT_AP_2= DCAP_AP v2.0
 DCAP_AP_3_BASE = DCAT_AP v3.0 only basic validation
 DCAT_AP_3_FULL = DCAR_AP v3.0 full validation.
 HEALTH_RI = HEALTH_RI v1.0.0
+HEALTH_RI_V2 = HEALTH_RI v2.0.0
 
 search FDP using graph embedding.
 
